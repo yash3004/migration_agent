@@ -1,7 +1,6 @@
 # AI Data Migration Orchestrator
-
-Multi-agent system for generating SQL migration scripts using LLMs.
-
+A multi agent orchestration for generating and validating sql migration script 
+it can handle multiple tables in the database 
 ## Quick Start
 
 ### 1. Install Dependencies
@@ -9,30 +8,35 @@ Multi-agent system for generating SQL migration scripts using LLMs.
 ```bash
 uv sync
 ```
+or 
+```bash
+pip install -e .
+```
 
 ### 2. Configure API Key
-
-```bash
-cp .env.example .env
-# Edit .env and add your OpenAI API key
+create config.yaml file add the open ai key there in bellow format 
+```yaml
+openai:
+  api_key: (your api key here)
 ```
+
 
 ### 3. Run
 
 ```bash
-python -m migration_agent.main
+start_agent
 ```
 
 ## Input Files
 
-Place these in `data/` directory:
+Place these files in `data/` directory:
 
 - `source_schema.json` - Source database schema
 - `target_schema.json` - Target database schema
 - `field_mapping.csv` - Field mappings
 
-### Example: source_schema.json
-
+### schema for source_schema.json
+make sure to use this scema only for the source and target tables 
 ```json
 {
   "table_name": "raisers_edge_donors",
@@ -46,9 +50,10 @@ Place these in `data/` directory:
 ### Example: field_mapping.csv
 
 ```csv
-source_field,target_field,transformation
-donor_fname,first_name,direct
-donor_lname,last_name,direct
+source_table,source_field,target_table,target_field,transformation
+raisers_edge_donors,donor_fname,salesforce_contact,full_name,concat
+raisers_edge_donors,donor_lname,salesforce_contact,full_name,concat
+raisers_edge_donors,donor_email,salesforce_contact,email,direct
 ```
 
 ## Output Files
@@ -100,14 +105,3 @@ openai:
   api_key: ${OPENAI_API_KEY}
 ```
 
-## Troubleshooting
-
-**Error: "OPENAI_API_KEY not found"**
-- Create `.env` file with `OPENAI_API_KEY=your-key`
-
-**Error: "No module named migration_agent"**
-- Run from project root: `python -m migration_agent.main`
-
-**Validation fails**
-- Check field mappings in CSV
-- Verify schema field names match exactly
