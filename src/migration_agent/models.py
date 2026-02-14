@@ -35,3 +35,4 @@ class ValidationReport(BaseModel):
     warnings: List[str] = []
     errors: List[str] = []
     valid_mappings: List[str] = []
+    validation_details: str = None

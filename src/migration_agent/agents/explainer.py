@@ -15,13 +15,14 @@ class ExplainerAgent:
     def explain(self, sql_script: str, context) -> str:
         prompt = ChatPromptTemplate.from_messages(
             [
-                ("system", "Explain SQL Migrations for audit documentation."),
-                ("user", """
-                        {sql_script} 
-                        Source: {source_table}
-                        Target: {target_table} 
-                    Provide explanation for audit in markdown format.""",
-                ),
+                ("system", "You're a technical writer. Explain SQL migration scripts in simple terms for audit documentation."),
+                ("user", """SQL Script:
+{sql_script}
+
+Source Table: {source_table}
+Target Table: {target_table}
+
+Provide a clear explanation in markdown format.""")
             ]
         )
 

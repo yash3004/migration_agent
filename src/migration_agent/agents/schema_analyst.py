@@ -61,14 +61,18 @@ class SchemaAnalystAgent:
     ) -> MigrationContext:
         prompt = ChatPromptTemplate.from_messages(
             [
-                ("system", "Analyze database schema compatibility for migration."),
+                ("system", "You're a database migration consultant. Analyze schema compatibility between source and target databases."),
                 (
                     "user",
-                    """Source: {source_table} ({source_fields})
-                Target: {target_table} ({target_fields})
-                Mappings: {mappings}
+                    """Source Table: {source_table}
+Fields: {source_fields}
 
-            Analyze datatype compatibility, missing fields, and valid mappings.""",
+Target Table: {target_table}
+Fields: {target_fields}
+
+Field Mappings: {mappings}
+
+Analyze: datatype compatibility, missing fields, valid mappings.""",
                 ),
             ]
         )

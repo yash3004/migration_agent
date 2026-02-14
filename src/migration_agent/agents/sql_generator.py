@@ -2,6 +2,9 @@ from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from migration_agent.models import MigrationContext
 from migration_agent import load_config
+import logging
+
+_sql_generator_logger = logging.getLogger("SQLGeneratorAgent")
 
 _config = load_config()
 
@@ -24,19 +27,20 @@ class SQLGeneratorAgent:
             [
                 (
                     "system",
-                    "Generate SQL migration scripts for all tables on the basis of the schema analyses.",
+                    "Generate only SQL INSERT INTO ... SELECT statements. No explanations, no markdown, no notes.",
                 ),
                 (
                     "user",
-                    """
-                    Schema Analyses:{analyses}
+                    """Schema Analysis:{analyses}
 
-                Generate SQL for all tables.""",
+Generate SQL only:""",
                 ),
             ]
         )
 
         response = self.llm.invoke(prompt.format_messages(analyses=all_analyses))
+        _sql_generator_logger.info(response.content.strip())
+        
         return response.content.strip()
 
     def regenerate(self, contexts: list, validation_report) -> str:
@@ -47,16 +51,19 @@ class SQLGeneratorAgent:
 
         prompt = ChatPromptTemplate.from_messages(
             [
-                ("system", "Fix SQL based on validation errors."),
+                ("system", "Generate only corrected SQL INSERT INTO ... SELECT statements. No explanations."),
                 (
                     "user",
-                    """
-                    Errors: {errors}
-                    Warnings: {warnings}
+                    """Errors:
+{errors}
 
-                    Schema Analyses:{analyses}
+Warnings:
+{warnings}
 
-            Generate corrected SQL for all tables.""",
+Schema Analysis:
+{analyses}
+
+Generate SQL only:""",
                 ),
             ]
         )

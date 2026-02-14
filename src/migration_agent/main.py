@@ -101,15 +101,32 @@ def start():
     with open(outputs_dir / "validation_report.md", "w") as f:
         f.write("# Validation Report\n\n")
         report = result["validation_report"]
-        for vm in report.valid_mappings:
-            f.write(f"{vm}\n")
-        f.write("\n### Warnings\n")
-        for w in report.warnings:
-            f.write(f"{w}\n")
+
+
+        
+        f.write("## Valid Mappings\n")
+        if report.valid_mappings:
+            for vm in report.valid_mappings:
+                f.write(f"- {vm}\n")
+        else:
+            f.write("None\n")
+        
+        f.write("\n## Warnings\n")
+        if report.warnings:
+            for w in report.warnings:
+                f.write(f"- {w}\n")
+        else:
+            f.write("None\n")
+        
+        f.write("\n## Errors\n")
         if report.errors:
-            f.write("\n### Errors\n")
             for e in report.errors:
-                f.write(f"{e}\n")
+                f.write(f"- {e}\n")
+        else:
+            f.write("None\n")
+        if report.validation_details:
+            f.write("\n## Validation Details\n")
+            f.write(report.validation_details)
 
     with open(outputs_dir / "sql_explanation.md", "w") as f:
         f.write("# SQL Explanation\n\n")
