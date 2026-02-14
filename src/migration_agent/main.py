@@ -62,7 +62,6 @@ def check_validation(state: State):
 
 def start():
     logging.basicConfig(level=logging.INFO, format="%(message)s")
-    os.environ["OPENAI_API_KEY"] = load_config().openai.api_key
 
     workflow = StateGraph(State)
     workflow.add_node("sql_generator", sql_generator_node)
