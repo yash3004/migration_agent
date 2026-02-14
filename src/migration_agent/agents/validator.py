@@ -7,7 +7,6 @@ import logging
 _config = load_config()
 _validation_logger = logging.getLogger("ValidationAgent")
 class ValidationAgent:
-    """Verifies data type compatibility and identifies errors or missing mappings using LLM"""
     
     def __init__(self):
         self.llm = ChatOpenAI(
@@ -17,7 +16,6 @@ class ValidationAgent:
         ).with_structured_output(ValidationReport)
     
     def validate(self, sql_script: str, context: MigrationContext) -> ValidationReport:
-        """Validate SQL against schema constraints using LLM"""
         prompt = ChatPromptTemplate.from_messages([
             ("system", "You're a SQL validation expert. Validate the SQL migration script."),
             ("user", """SQL Script:

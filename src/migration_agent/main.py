@@ -43,12 +43,12 @@ def explainer_node(state: State):
     _logger.info("explainer agent")
     explanation_agent = ExplainerAgent()
     explanation = explanation_agent.explain(state.sql_script, state.contexts[0])
-    _logger.info("✓ Explanation generated\n")
+    _logger.info("Explanation generated\n")
     return {"explanation": explanation}
 
 
 def sql_regenerator_node(state: State):
-    _logger.info(f"🔄 Retry {state.retry_count + 1}/3")
+    _logger.info(f"Retrying {state.retry_count + 1}/3")
     generate_agent = SQLGeneratorAgent()
     sql = generate_agent.regenerate(state.contexts, state.validation_report)
     return {"sql_script": sql, "retry_count": state.retry_count + 1}
@@ -63,8 +63,6 @@ def check_validation(state: State):
 def start():
     logging.basicConfig(level=logging.INFO, format="%(message)s")
     os.environ["OPENAI_API_KEY"] = load_config().openai.api_key
-
-    _logger.info("🚀 AI Data Migration Orchestrator\n")
 
     workflow = StateGraph(State)
     workflow.add_node("sql_generator", sql_generator_node)
@@ -102,22 +100,20 @@ def start():
         f.write("# Validation Report\n\n")
         report = result["validation_report"]
 
-
-        
         f.write("## Valid Mappings\n")
         if report.valid_mappings:
             for vm in report.valid_mappings:
                 f.write(f"- {vm}\n")
         else:
             f.write("None\n")
-        
+
         f.write("\n## Warnings\n")
         if report.warnings:
             for w in report.warnings:
                 f.write(f"- {w}\n")
         else:
             f.write("None\n")
-        
+
         f.write("\n## Errors\n")
         if report.errors:
             for e in report.errors:

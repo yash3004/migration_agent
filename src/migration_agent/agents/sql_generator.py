@@ -10,7 +10,6 @@ _config = load_config()
 
 
 class SQLGeneratorAgent:
-    """Generates SQL INSERT INTO SELECT statements using LLM"""
 
     def __init__(self):
         self.llm = ChatOpenAI(
@@ -18,7 +17,6 @@ class SQLGeneratorAgent:
         )
 
     def generate(self, contexts: list) -> str:
-        """Generate SQL for all tables at once"""
         all_analyses = "\n\n".join(
             [f"Table {i+1}: {ctx.analysis}" for i, ctx in enumerate(contexts)]
         )
@@ -44,7 +42,6 @@ Generate SQL only:""",
         return response.content.strip()
 
     def regenerate(self, contexts: list, validation_report) -> str:
-        """Regenerate SQL for all tables based on validation errors"""
         all_analyses = "\n\n".join(
             [f"Table {i+1}: {ctx.analysis}" for i, ctx in enumerate(contexts)]
         )
