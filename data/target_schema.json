@@ -1,0 +1,24 @@
+{
+  "tables": [
+    {
+      "table_name": "salesforce_contact",
+      "fields": [
+        {"name": "id", "type": "VARCHAR(18)", "nullable": false, "primary_key": true},
+        {"name": "full_name", "type": "VARCHAR(100)", "nullable": false},
+        {"name": "email", "type": "VARCHAR(255)", "nullable": true},
+        {"name": "total_gifts", "type": "DECIMAL(10,2)", "nullable": true},
+        {"name": "created_date", "type": "DATETIME", "nullable": true}
+      ]
+    },
+    {
+      "table_name": "whatsapp_contacts",
+      "fields": [
+        {"name": "id", "type": "VARCHAR(18)", "nullable": false, "primary_key": true},
+        {"name": "full_name", "type": "VARCHAR(100)", "nullable": false},
+        {"name": "phone_number", "type": "VARCHAR(20)", "nullable": true},
+        {"name":"email" , "type" : "VARCHAR(255)","nullable":true},
+        {"name": "last_message_date", "type": "TIMESTAMP", "nullable": true}
+      ]
+    }
+  ]
+}

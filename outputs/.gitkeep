@@ -1,0 +1,6 @@
+# Outputs Directory
+
+Generated files will be saved here:
+- sample_output.sql
+- validation_report.md
+- sql_explanation.md

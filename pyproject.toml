@@ -1,0 +1,20 @@
+[project]
+name = "ai-agentic-migration"
+version = "0.1.0"
+description = "SQL Migration Script Generator using Multi-Agent AI System"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "langchain-core>=0.3.0",
+    "langchain-openai>=0.2.0",
+    "langgraph>=0.2.0",
+    "openai>=1.0.0",
+    "pydantic>=2.0.0",
+    "python-dotenv>=1.0.0",
+    "pyyaml>=6.0.0",
+    "dacite",
+
+]
+
+[project.scripts]
+start_agent = "migration_agent.main:start"

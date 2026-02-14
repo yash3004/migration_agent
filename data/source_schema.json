@@ -1,0 +1,36 @@
+{
+  "tables": [
+    {
+      "table_name": "raisers_edge_donors",
+      "fields": [
+        {
+          "name": "donor_id",
+          "type": "INTEGER",
+          "nullable": false,
+          "primary_key": true
+        },
+        { "name": "donor_fname", "type": "VARCHAR(100)", "nullable": false },
+        { "name": "donor_lname", "type": "VARCHAR(100)", "nullable": false },
+        { "name": "donor_email", "type": "VARCHAR(255)", "nullable": true },
+        { "name": "gift_total", "type": "DECIMAL(10,2)", "nullable": true },
+        { "name": "created_date", "type": "TIMESTAMP", "nullable": false }
+      ]
+    },
+    {
+      "table_name": "instagram_contacts",
+      "fields": [
+        {
+          "name": "contact_id",
+          "type": "INTEGER",
+          "nullable": false,
+          "primary_key": true
+        },
+        { "name": "contact_fname", "type": "VARCHAR(100)", "nullable": false },
+        { "name": "contact_lname", "type": "VARCHAR(100)", "nullable": false },
+        { "name": "contact_email", "type": "VARCHAR(255)", "nullable": true },
+        { "name": "created_date", "type": "TIMESTAMP", "nullable": false },
+        { "name": "mobile_number", "type": "VARCHAR(10)", "nullable": false }
+      ]
+    }
+  ]
+}
