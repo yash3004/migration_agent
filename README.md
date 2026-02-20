@@ -65,7 +65,7 @@ Generated in `outputs/` directory:
 - `sql_explanation.md` - Human-readable explanation
 
 ## Architecture
-![Architecture](migration_agent.png)
+![Architecture](migration_agent.jpg)
 
 
 
