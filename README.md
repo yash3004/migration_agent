@@ -65,12 +65,9 @@ Generated in `outputs/` directory:
 - `sql_explanation.md` - Human-readable explanation
 
 ## Architecture
+![Architecture](migration_agent.png)
 
-4 agents in linear pipeline:
 
-```
-Schema Analyst → SQL Generator → Validator → Explainer
-```
 
 1. **Schema Analyst** - Analyzes schemas, detects mismatches
 2. **SQL Generator** - Generates SQL using LLM
